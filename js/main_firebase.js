@@ -46,7 +46,6 @@ function logOut(){
     });
 }
 function guardar(cotizacion){
-    console.log('llega aqui');
     db.collection('cotizaciones').add(cotizacion).then((result)=>{
         alert('Cotizacion guardada');
     }).catch((error)=>{
@@ -55,22 +54,76 @@ function guardar(cotizacion){
 }
 function cargarCotizaciones(){
     let cotizaciones = document.getElementById('cotizaciones');
-    console.log('llega');
     db.collection('cotizaciones').onSnapshot((result)=>{
         result.forEach((doc) => {
             cotizaciones.innerHTML+=`<tr>
             <th scope="row">${doc.data().folio_req}</th>
-            <td>${doc.data().nombre}</td>
+            <td>${doc.data().cliente}</td>
             <td>${doc.data().forma_pago}</td>
             <td>${doc.data().fecha}</td>
             <td>${doc.data().total}</td>
             <td>
                 <div class="btn-group btn-group-sm">
-                    <p class="btn btn-warning" onclick="modalEditar(${doc.id})">Editar</p>
-                    <p class="btn btn-danger" onclick="eliminarCot(${doc.id})">Eliminar</p>
+                    <p class="btn btn-warning" onclick="editarCot('${doc.id}')">Editar</p>
+                    <p class="btn btn-danger" onclick="eliminarCot('${doc.id}')">Eliminar</p>
                 </div>
             </td>
         </tr>`;
         });
+    });
+}
+function editarCot(cot_id){
+    document.getElementById('tbody').innerHTML='';
+    db.collection('cotizaciones').doc(cot_id).get().then((doc)=>{
+        let cotizacion = doc.data();
+        let products = doc.data().productos;
+        $("#cotizacion").val(doc.id);
+        $("#folio_req").val(cotizacion.folio_req);
+        $("#cliente").val(cotizacion.cliente);
+        $("#forma_pago").val(cotizacion.forma_pago);
+        $("#fecha").val(cotizacion.fecha);
+        $("#ciudad").val(cotizacion.ciudad);
+
+        products.forEach((product,index)=>{
+            if(index==products.length-1){
+                $("#tbody").append(`<tr id="row-${index}-" class="fila">
+                <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.cantidad}"/></th>
+                <td><input type="text" style="width: 100%;" id="desc-${index}-" placeholder="Descripción" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.desc}"/></td>
+                <td><input type="number" style="width: 100%;text-align: center;" id="precio-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.precio}"/></td>
+                <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${index}-" placeholder="0" value="${product.total}" readonly/>
+                    <p class="btn btn-danger" style="position: absolute;float: right;" id="delBTN-${index}-" onclick="delRow(${index})">
+                        <i class="fas fa-trash"></i>
+                    </p>
+                </td>
+                    </tr><tr id="row-${index+1}-" class="fila">
+                    <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index+1}-" placeholder="0" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})" value="0"/></th>
+                    <td><input type="text" style="width: 100%;" id="desc-${index+1}-" placeholder="Descripción" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})"/></td>
+                    <td><input type="number" style="width: 100%;text-align: center;" id="precio-${index+1}-" placeholder="0" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})" value="0"/></td>
+                    <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${index+1}-" placeholder="0" value="0" readonly/>
+                        <p class="btn btn-danger" style="position: absolute;float: right;display: none;" id="delBTN-${index+1}-" onclick="delRow(${index+1})">
+                            <i class="fas fa-trash"></i>
+                        </p>
+                    </td>
+                </tr>`);
+            }else if(index<products.length){
+                $("#tbody").append(`<tr id="row-${index}-" class="fila">
+                <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.cantidad}"/></th>
+                <td><input type="text" style="width: 100%;" id="desc-${index}-" placeholder="Descripción" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.desc}"/></td>
+                <td><input type="number" style="width: 100%;text-align: center;" id="precio-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.precio}"/></td>
+                <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${index}-" placeholder="0" value="${product.total}" readonly/>
+                    <p class="btn btn-danger" style="position: absolute;float: right;" id="delBTN-${index}-" onclick="delRow(${index})">
+                        <i class="fas fa-trash"></i>
+                    </p>
+                </td>
+            </tr>`);
+            }
+        });
+
+        $("#subtotal").val(cotizacion.subtotal);
+        $("#iva").val(cotizacion.iva);
+        $("#total").val(cotizacion.total);
+        $("#exampleModal").modal('show');
+    }).catch((error)=>{
+        console.log(error.message);
     });
 }
