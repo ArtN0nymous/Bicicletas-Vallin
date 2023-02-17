@@ -5,6 +5,7 @@ $( document ).ready(function() {
     }else{
         document.getElementById('login_inputs').style.display='none';
         document.getElementById('logOutBtn').style.display='';
+        cargarCotizaciones()
     }
 });
 function delRow (id){
@@ -92,13 +93,13 @@ function format_data(){
         forma_pago:$("#forma_pago").val(),
         fecha:$("#fecha").val(),
         ciudad:$("#ciudad").val(),
-        products:products,
+        productos:products,
         subtotal:$("#subtotal").val(),
         iva:$("#iva").val(),
         total:$("#total").val()
     }
     if(cotizacion.total>0){
-        console.log(cotizacion);
-        //guardar(cotizacion);
+        //console.log(cotizacion);
+        guardar(cotizacion);
     }
 }
