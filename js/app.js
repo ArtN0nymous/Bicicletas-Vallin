@@ -58,7 +58,6 @@ function calcularTotal(){
     var iva=0;
     for (let i = 0; i < products.length; i++) {
         subtotal +=$("#total-"+i+"-").val()*1;
-        console.log('elemento:'+i,'total:'+$("#total-"+i+"-").val());
         $("#subtotal").val(subtotal);
         iva = (subtotal*16)/100;
         $("#iva").val(iva);
