@@ -47,7 +47,16 @@ function logOut(){
 }
 function guardar(cotizacion){
     db.collection('cotizaciones').add(cotizacion).then((result)=>{
+        $("#exampleModal").modal('hide');
         alert('Cotizacion guardada');
+    }).catch((error)=>{
+        console.log(error.message);
+    });
+}
+function actualizarCot(cot_id,cotizacion){
+    db.collection('cotizaciones').doc(cot_id).update(cotizacion).then((result)=>{
+        $("#exampleModal").modal('hide');
+        alert('Cotizacion actualizada');
     }).catch((error)=>{
         console.log(error.message);
     });
@@ -55,6 +64,7 @@ function guardar(cotizacion){
 function cargarCotizaciones(){
     let cotizaciones = document.getElementById('cotizaciones');
     db.collection('cotizaciones').onSnapshot((result)=>{
+        cotizaciones.innerHTML='';
         result.forEach((doc) => {
             cotizaciones.innerHTML+=`<tr>
             <th scope="row">${doc.data().folio_req}</th>
@@ -129,4 +139,14 @@ function editarCot(cot_id){
     }).catch((error)=>{
         console.log(error.message);
     });
+}
+function eliminarCot(cot_id){
+    let a = confirm('¿Desea eliminar esta cotización?');
+    if(a){
+        db.collection('cotizaciones').doc(cot_id).delete().then((resutl)=>{
+            //cargarCotizaciones();
+        }).catch((error)=>{
+            consolole.log(error.message);
+        });
+    }
 }

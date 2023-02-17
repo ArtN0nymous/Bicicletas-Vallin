@@ -76,6 +76,7 @@ function calcularTotal(){
     }
 }
 function format_data(){
+    let id = $("#cotizacion").val();
     var elements= $("#tbody .fila").toArray();
     let products =[];
     for (let i = 0; i < elements.length; i++) {
@@ -101,6 +102,10 @@ function format_data(){
     }
     if(cotizacion.total>0){
         //console.log(cotizacion);
-        guardar(cotizacion);
+        if(id!=''){
+            actualizarCot(id,cotizacion);
+        }else{
+            guardar(cotizacion);
+        }
     }
 }
