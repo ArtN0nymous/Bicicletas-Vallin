@@ -1,3 +1,12 @@
+$( document ).ready(function() {
+    let user = sessionStorage.getItem("user");
+    if(user==null){
+        document.getElementById('content').style.display='none';
+    }else{
+        document.getElementById('login_inputs').style.display='none';
+        document.getElementById('logOutBtn').style.display='';
+    }
+});
 function delRow (id){
     let contenedor = document.getElementById("tbody");
     let element = document.getElementById("row-"+id+"-");
