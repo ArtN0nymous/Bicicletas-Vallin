@@ -7,6 +7,21 @@ $( document ).ready(function() {
         document.getElementById('logOutBtn').style.display='';
         cargarCotizaciones()
     }
+    $("#exampleModal").on('hide.bs.modal', function(){
+        $("#formulario_cotizacion").trigger('reset');
+        document.getElementById('tbody').innerHTML='';
+        $("#tbody").append(`<tr id="row-0-" class="fila">
+        <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></th>
+        <td><input type="text" style="width: 100%;" id="desc-0-" placeholder="Descripción" onchange="calcular(0)" onkeyup="calcular(0)"/></td>
+        <td><input type="number" style="width: 100%;text-align: center;" id="precio-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></td>
+        <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-0-" placeholder="0" readonly/></td>
+        <td>
+            <p class="btn btn-danger" style="display: none;" id="delBTN-0-" onclick="delRow(0)">
+                <i class="fas fa-trash"></i>
+            </p>
+        </td>
+    </tr>`);
+    });
 });
 function delRow (id){
     let contenedor = document.getElementById("tbody");
