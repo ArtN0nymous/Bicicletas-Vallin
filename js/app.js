@@ -52,8 +52,9 @@ function calcular(id,oper){
                     <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${id+1}-" placeholder="0" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})" value="0"/></th>
                     <td><input type="text" style="width: 100%;" id="desc-${id+1}-" placeholder="Descripción" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})"/></td>
                     <td><input type="number" style="width: 100%;text-align: center;" id="precio-${id+1}-" placeholder="0" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})" value="0"/></td>
-                    <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${id+1}-" placeholder="0" value="0" readonly/>
-                        <p class="btn btn-danger" style="position: absolute;float: right;display: none;" id="delBTN-${id+1}-" onclick="delRow(${id+1})">
+                    <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${id+1}-" placeholder="0" value="0" readonly/></td>
+                    <td>
+                        <p class="btn btn-danger" style="display: none;" id="delBTN-${id+1}-" onclick="delRow(${id+1})">
                             <i class="fas fa-trash"></i>
                         </p>
                     </td>
