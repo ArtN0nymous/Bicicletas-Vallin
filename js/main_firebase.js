@@ -13,7 +13,6 @@ var storageRef = firebase.storage();
 function login(){
     let email = $("#email").val();
     let password=$("#password").val();
-    console.log(email,password);
     if(email!=null && password!=null){
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
@@ -33,7 +32,14 @@ function logOut(){
         //window.location.reload();
         sessionStorage.removeItem("user");
         window.location.reload();
-      }).catch((error) => {
+    }).catch((error) => {
         //console.log(error.message);
-      });
+    });
+}
+function guardar(cotizacion){
+    db.collection('cotizaciones').add(cotizacion).then((result)=>{
+        alert('Cotizacion guardada');
+    }).catch((result)=>{
+        console.log(error.message);
+    });
 }

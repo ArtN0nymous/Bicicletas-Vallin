@@ -66,10 +66,39 @@ function calcularTotal(){
     var subtotal =0;
     var iva=0;
     for (let i = 0; i < products.length; i++) {
-        subtotal +=$("#total-"+i+"-").val()*1;
+        subtotal +=(document.getElementById("total-"+i+"-").value)*1;
         $("#subtotal").val(subtotal);
         iva = (subtotal*16)/100;
         $("#iva").val(iva);
         $("#total").val(subtotal+iva);
+    }
+}
+function format_data(){
+    var elements= $("#tbody .fila").toArray();
+    let products =[];
+    for (let i = 0; i < elements.length; i++) {
+        if($("#total-"+i+"-").val()>0){
+            products.push({
+                cantidad:$("#cantidad-"+i+"-").val(),
+                desc:$("#desc-"+i+"-").val(),
+                precio:$("#precio-"+i+"-").val(),
+                total:$("#total-"+i+"-").val()
+            });
+        }
+    }
+    let cotizacion ={
+        folio_req:$("#folio_req").val(),
+        cliente:$("#cliente").val(),
+        forma_pago:$("#forma_pago").val(),
+        fecha:$("#fecha").val(),
+        ciudad:$("#ciudad").val(),
+        products:products,
+        subtotal:$("#subtotal").val(),
+        iva:$("#iva").val(),
+        total:$("#total").val()
+    }
+    if(cotizacion.total>0){
+        console.log(cotizacion);
+        //guardar(cotizacion);
     }
 }
