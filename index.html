@@ -12,6 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.1.3-pr5646.6d9dd3616/firebase-storage-compat.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Cotizaciones</title>
 </head>
 <body>
@@ -108,7 +109,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>0</td>
+                                        <td><input type="number" style="width: 100%;" id="cotizacion"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -117,61 +118,67 @@
                     <div class="table-responsive">
                         <table class="table table-bordered" style="border-style:solid;border-width: 1pt;">
                             <thead>
-                                <tr style="background-color:#FF0000;border-color: black;">
-                                    <th scope="col">FOLIO REQ</th>
-                                    <th scope="col">CLIENTE</th>
-                                    <th scope="col">FORMA DE PAGO</th>
-                                    <th scope="col">FECHA</th>
-                                    <th scope="col">CIUDAD</th>
+                                <tr style="background-color:#FF0000;border-color: black;text-align: center;">
+                                    <th class="col-1">FOLIO REQ</th>
+                                    <th class="col-3">CLIENTE</th>
+                                    <th class="col-3">FORMA DE PAGO</th>
+                                    <th class="col-1">FECHA</th>
+                                    <th class="col-2">CIUDAD</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">0</th>
-                                    <td>nombre</td>
-                                    <td>Contado</td>
-                                    <td>2023-02-02</td>
-                                    <td>Mazatlan</td>
+                                    <th scope="row"><input type="text" style="width: 100%;" id="folio_req" placeholder="0"/></th>
+                                    <td><input type="text" style="width: 100%;" id="cliente" placeholder="nombre"/></td>
+                                    <td><input type="text" style="width: 100%;" id="forma_pago" placeholder="Contado"/></td>
+                                    <td><input type="date" style="width: 100%;" id="fecha"/></td>
+                                    <td><input type="text" style="width: 100%;" id="ciudad" placeholder="Mazatlan"/></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-bordered" style="border-style:solid;border-width: 1pt;">
+                        <table class="table table-bordered" style="border-style:solid;border-width: 1pt;text-align: center;">
                             <thead>
                                 <tr style="background-color:#FF0000;border-color: black;">
-                                    <th scope="col">CANTIDAD</th>
-                                    <th scope="col">DESCRIPCION</th>
-                                    <th scope="col">PRECIO UNITARIO</th>
-                                    <th scope="col">TOTAL</th>
+                                    <th class="col-2">CANTIDAD</th>
+                                    <th class="col-6">DESCRIPCION</th>
+                                    <th class="col-2">PRECIO UNITARIO</th>
+                                    <th class="col-2">TOTAL</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">0</th>
-                                    <td>nombre</td>
-                                    <td>10</td>
-                                    <td>0</td>
+                            <tbody id="tbody">
+                                <tr id="row-0-" class="fila">
+                                    <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></th>
+                                    <td><input type="text" style="width: 100%;" id="desc-0-" placeholder="Descripción" onchange="calcular(0)" onkeyup="calcular(0)"/></td>
+                                    <td><input type="number" style="width: 100%;text-align: center;" id="precio-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></td>
+                                    <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-0-" placeholder="0" readonly/>
+                                        <p class="btn btn-danger" style="position: absolute;float: right;display: none;" id="delBTN-0-" onclick="delRow(0)">
+                                            <i class="fas fa-trash"></i>
+                                        </p>
+                                    </td>
                                 </tr>
-                                <tr>
+                            </tbody>
+                            <tfoot>
+                                <tr style="font-weight: bold;">
                                     <th></th>
                                     <td></td>
                                     <td>SUBTOTAL</td>
-                                    <td>0</td>
+                                    <td><input type="number" style="width: 100%;border: 0;text-align: center;" id="subtotal" placeholder="0" readonly/></td>
                                 </tr>
-                                <tr>
+                                <tr style="font-weight: bold;">
                                     <th></th>
                                     <td></td>
                                     <td>I.V.A 16%</td>
-                                    <td>0</td>
+                                    <td><input type="number" style="width: 100%;border: 0;text-align: center;" id="iva" placeholder="0" readonly/></td>
                                 </tr>
-                                <tr>
+                                <tr style="font-weight: bold;">
                                     <th></th>
                                     <td></td>
                                     <td>VALOR TOTAL</td>
-                                    <td>0</td>
+                                    <td><input type="number" style="width: 100%;border: 0;text-align: center;" id="total" placeholder="0" readonly/></td>
                                 </tr>
-                            </tbody>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -183,5 +190,6 @@
             </div>
           </div>
     <script src="/js/main_firebase.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>
