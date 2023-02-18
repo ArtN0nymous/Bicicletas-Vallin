@@ -67,7 +67,7 @@ function cargarCotizaciones(){
         cotizaciones.innerHTML='';
         result.forEach((doc) => {
             cotizaciones.innerHTML+=`<tr>
-            <th scope="row">${doc.data().folio_req}</th>
+            <td>${doc.data().folio_req}</td>
             <td>${doc.data().cliente}</td>
             <td>${doc.data().forma_pago}</td>
             <td>${doc.data().fecha}</td>
@@ -80,6 +80,7 @@ function cargarCotizaciones(){
             </td>
         </tr>`;
         });
+        $('#cotizaciones_table').DataTable();
     });
 }
 function editarCot(cot_id){
@@ -97,7 +98,7 @@ function editarCot(cot_id){
         products.forEach((product,index)=>{
             if(index==products.length-1){
                 $("#tbody").append(`<tr id="row-${index}-" class="fila">
-                <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.cantidad}"/></th>
+                <td><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.cantidad}"/></td>
                 <td><input type="text" style="width: 100%;" id="desc-${index}-" placeholder="Descripción" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.desc}"/></td>
                 <td><input type="number" style="width: 100%;text-align: center;" id="precio-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.precio}"/></td>
                 <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${index}-" placeholder="0" value="${product.total}" readonly/></td>
@@ -107,7 +108,7 @@ function editarCot(cot_id){
                     </p>
                 </td>
                 </tr><tr id="row-${index+1}-" class="fila">
-                    <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index+1}-" placeholder="0" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})" value="0"/></th>
+                    <td><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index+1}-" placeholder="0" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})" value="0"/></td>
                     <td><input type="text" style="width: 100%;" id="desc-${index+1}-" placeholder="Descripción" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})"/></td>
                     <td><input type="number" style="width: 100%;text-align: center;" id="precio-${index+1}-" placeholder="0" onchange="calcular(${index+1})" onkeyup="calcular(${index+1})" value="0"/></td>
                     <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${index+1}-" placeholder="0" value="0" readonly/></td>
@@ -119,7 +120,7 @@ function editarCot(cot_id){
                 </tr>`);
             }else if(index<products.length){
                 $("#tbody").append(`<tr id="row-${index}-" class="fila">
-                <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.cantidad}"/></th>
+                <td><input type="number" style="width: 100%;text-align: center;" id="cantidad-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.cantidad}"/></td>
                 <td><input type="text" style="width: 100%;" id="desc-${index}-" placeholder="Descripción" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.desc}"/></td>
                 <td><input type="number" style="width: 100%;text-align: center;" id="precio-${index}-" placeholder="0" onchange="calcular(${index})" onkeyup="calcular(${index})" value="${product.precio}"/></td>
                 <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${index}-" placeholder="0" value="${product.total}" readonly/></td>

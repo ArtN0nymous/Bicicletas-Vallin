@@ -11,7 +11,7 @@ $( document ).ready(function() {
         $("#formulario_cotizacion").trigger('reset');
         document.getElementById('tbody').innerHTML='';
         $("#tbody").append(`<tr id="row-0-" class="fila">
-        <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></th>
+        <td><input type="number" style="width: 100%;text-align: center;" id="cantidad-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></td>
         <td><input type="text" style="width: 100%;" id="desc-0-" placeholder="Descripción" onchange="calcular(0)" onkeyup="calcular(0)"/></td>
         <td><input type="number" style="width: 100%;text-align: center;" id="precio-0-" placeholder="0" onchange="calcular(0)" onkeyup="calcular(0)" value="0"/></td>
         <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-0-" placeholder="0" readonly/></td>
@@ -64,7 +64,7 @@ function calcular(id,oper){
                     document.getElementById("delBTN-"+id+"-").style.display='';
                 }
                 $("#tbody").append(`<tr id="row-${id+1}-" class="fila">
-                    <th scope="row"><input type="number" style="width: 100%;text-align: center;" id="cantidad-${id+1}-" placeholder="0" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})" value="0"/></th>
+                    <td><input type="number" style="width: 100%;text-align: center;" id="cantidad-${id+1}-" placeholder="0" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})" value="0"/></td>
                     <td><input type="text" style="width: 100%;" id="desc-${id+1}-" placeholder="Descripción" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})"/></td>
                     <td><input type="number" style="width: 100%;text-align: center;" id="precio-${id+1}-" placeholder="0" onchange="calcular(${id+1})" onkeyup="calcular(${id+1})" value="0"/></td>
                     <td><input type="number" style="width: 100%;text-align: center;border: 0;" id="total-${id+1}-" placeholder="0" value="0" readonly/></td>
