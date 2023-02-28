@@ -10,14 +10,14 @@ firebase.initializeApp({
 var db = firebase.firestore();
 var storageRef = firebase.storage();
 const auth = firebase.auth();
-firebase.auth().onAuthStateChanged((user) => {
+/*firebase.auth().onAuthStateChanged((user) => {
 if (user) {
     //var uid = user.uid;
 } else {
     sessionStorage.removeItem("user");
-    window.location.reload();
+    //window.location.reload();
 }
-});
+});*/
 //const analytics = firebase.analytics();
 function login(){
     let email = $("#email").val();
@@ -30,6 +30,7 @@ function login(){
             document.getElementById('login_inputs').style.display='none';
             document.getElementById('logOutBtn').style.display='';
             document.getElementById('content').style.display='';
+            cargarCotizaciones();
         })
         .catch((error) => {
             console.log(error.code,error.message);
